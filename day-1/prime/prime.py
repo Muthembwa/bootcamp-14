@@ -8,7 +8,7 @@ def generate_prime ():
 			
 		else:
 			for y in A[x]:
-				A.setdefault(y+x, []).append (p)
+				A.setdefault(y+x, []).append (x)
 			del A[x]
 		x += 1
 		print x
