@@ -1,15 +1,28 @@
 class BinarySearch(list):
-    def _init_ (self,alist):
-        self.len(alist)==0
-        def binary_Search(item):
-            if len(alist) == 0:
-                return False
-            else:
-                midpoint = len(alist)//2
-            if alist[midpoint]==item:
-                return True
-            else:
-                if item<alist[midpoint]:
-                    return binarySearch(alist[:midpoint],item)
-                else:
-                    return binarySearch(alist[midpoint+1:],item)
+  def __init__(self, integera, integerb):
+    self.integera = integera
+    self.integerb = integerb
+    lst = [x for x in range (integerb, integera+1, integerb)]
+    self.length = len(lst)
+    
+  def search(self,x):
+    mylist = self.lst
+    first = 0
+    last = self.length -1
+    diction = {}
+    count =0
+    while first<last:
+      count = count+1
+      if first == last:
+        return -1
+      middle =(first+last)//2
+      middle_item = mylist[middle]
+      if middle_item == x:
+        diction ['count'] = count
+        diction ['index'] = middle
+        return diction
+      else:  
+        if middle_item < x:
+          first = middle + 1
+        else:
+          last = middle
