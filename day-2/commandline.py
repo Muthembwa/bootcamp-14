@@ -1,34 +1,21 @@
-from google.cloud import bigquery
+import httplib
 
+x = httplib.HTTPConnection("www.python.org")
 
-def query_shakespeare():
-    client = bigquery.Client()
-    query_results = client.run_sync_query("""
-        SELECT
-            APPROX_TOP_COUNT(corpus, 10) as title,
-            COUNT(*) as unique_words
-        FROM `publicdata.samples.shakespeare`;""")
+x.request("GET", "/index.html")
 
-    # Use standard SQL syntax for queries.
-    # See: https://cloud.google.com/bigquery/sql-reference/
-    query_results.use_legacy_sql = False
+r1 = x.getresponse()
 
-    query_results.run()
+print r1.status, r1.reason
 
-    # Drain the query results by requesting a page at a time.
-    page_token = None
+data1 = r1.read()
 
-    while True:
-        rows, total_rows, page_token = query_results.fetch_data(
-            max_results=10,
-            page_token=page_token)
+x.request("GET", "/parrot.spam")
 
-        for row in rows:
-            print(row)
+r2 = x.getresponse()
 
-        if not page_token:
-            break
+print r2.status, r2.reason
 
+data2 = r2.read()
 
-if __name__ == '__main__':
-    query_shakespeare()
+x.close()
